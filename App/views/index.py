@@ -29,22 +29,21 @@ def init():
         create_course('COMP1602', 'Computer Programming II', 'Level One', 3, 2)
         create_course('COMP1603', 'Computer Programming III', 'Level One', 3, 2)
         create_course('COMP1604', 'Mathematics for Computing', 'Level One', 3, 2)
+        
         create_course('COMP2601', 'Computer Architecture', 'Advanced Level', 3, 1, 'COMP1600')
         create_course('COMP2602', 'Computer Networks', 'Advanced Level', 3, 1, 'COMP1600')
         create_course('COMP2605', 'Enterprise Database Systems', 'Advanced Level', 3, 1, 'COMP1602')
         create_course('COMP2611', 'Data Structures', 'Advanced Level', 3, 1, 'COMP1602')
+        create_course('COMP2603', 'Object-Oriented Programming I', 'Advanced Level', 3, 2, 'COMP1603')
+        create_course('COMP2604', 'Operating Systems', 'Advanced Level', 3, 2, 'COMP1600')
+        create_course('COMP2606', 'Software Engineering I', 'Advanced Level', 3, 2, 'COMP1602')
+
         create_course('COMP3602', 'Theory of Computing', 'Advanced Level', 3, 1, 'COMP1604')
         create_course('COMP3603', 'Human Computer Interaction', 'Advanced Level', 3, 1, 'COMP2606')
         create_course('COMP3605', 'Introduction to Data Analytics', 'Advanced Level', 3, 1, 'MATH2250')
         create_course('COMP3606', 'Wireless and Mobile Computing', 'Advanced Level', 3, 1, 'COMP2602')
         create_course('COMP3607', 'Object-Oriented Programming II', 'Advanced Level', 3, 1, 'COMP2603')
         create_course('COMP3613', 'Software Engineering II', 'Advanced Level', 3, 1, 'COMP2606')
-
-        
-
-        create_course('COMP2603', 'Object-Oriented Programming I', 'Advanced Level', 3, 2, 'COMP1603')
-        create_course('COMP2604', 'Operating Systems', 'Advanced Level', 3, 2, 'COMP1600')
-        create_course('COMP2606', 'Software Engineering I', 'Advanced Level', 3, 2, 'COMP1602')
         create_course('COMP3601', 'Design and Analysis of Algorithms', 'Advanced Level', 3, 2, 'COMP2611')
         create_course('COMP3608', 'Intelligent Systmes', 'Advanced Level', 3, 2, 'COMP2611')
         create_course('COMP3609', 'Game Programming', 'Advanced Level', 3, 2, 'COMP2603')
@@ -52,13 +51,14 @@ def init():
         create_course('COMP3611', 'Modelling and Simulation', 'Advanced Level', 3, 2, 'MATH2250')
 
         create_course('INFO1600', 'Introduction to Information Technology Concepts', 'Level One', 3, 1)
-        create_course('INFO2605', 'Professional Ethics and Law', 'Advanced Level', 3, 1, 'COMP1600')
-        create_course('INFO3600', 'Business Information Systems', 'Advanced Level', 3, 1, 'COMP2605')
-        create_course('INFO3605', 'Fundamentals of LAN Technologies', 'Advanced Level', 3, 1, 'COMP2604')
-
         create_course('INFO1601', 'Introduction to WWW Programming', 'Level One', 3, 2)
+
         create_course('INFO2602', 'Web Programming and Technologies I', 'Advanced Level', 3, 2, 'INFO1601')
         create_course('INFO2604', 'Information Systems Security', 'Advanced Level', 3, 2, 'COMP1602')
+        create_course('INFO2605', 'Professional Ethics and Law', 'Advanced Level', 3, 1, 'COMP1600')
+        
+        create_course('INFO3600', 'Business Information Systems', 'Advanced Level', 3, 1, 'COMP2605')
+        create_course('INFO3605', 'Fundamentals of LAN Technologies', 'Advanced Level', 3, 1, 'COMP2604')
         create_course('INFO3604', 'Project', 'Advanced Level', 3, 2, 'COMP2606')
         create_course('INFO3606', 'Cloud Computing', 'Advanced Level', 3, 2, 'COMP2605')
         create_course('INFO3607', 'Fundamentals of WAN Technologies', 'Advanced Level', 3, 2, 'COMP2604')

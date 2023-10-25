@@ -29,6 +29,9 @@ def initialize():
 
     create_course('COMP1600', 'Introduction to Computing Concepts', 'Level One', 3, 1)
     create_course('COMP1601', 'Computer Programming I', 'Level One', 3, 1)
+    create_course('COMP1602', 'Computer Programming II', 'Level One', 3, 2)
+    create_course('COMP1603', 'Computer Programming III', 'Level One', 3, 2)
+    create_course('COMP1604', 'Mathematics for Computing', 'Level One', 3, 2)
     create_course('COMP2601', 'Computer Architecture', 'Advanced Level', 3, 1, 'COMP1600')
     create_course('COMP2602', 'Computer Networks', 'Advanced Level', 3, 1, 'COMP1600')
     create_course('COMP2605', 'Enterprise Database Systems', 'Advanced Level', 3, 1, 'COMP1602')
@@ -39,10 +42,7 @@ def initialize():
     create_course('COMP3606', 'Wireless and Mobile Computing', 'Advanced Level', 3, 1, 'COMP2602')
     create_course('COMP3607', 'Object-Oriented Programming II', 'Advanced Level', 3, 1, 'COMP2603')
     create_course('COMP3613', 'Software Engineering II', 'Advanced Level', 3, 1, 'COMP2606')
-
-    create_course('COMP1602', 'Computer Programming II', 'Level One', 3, 2)
-    create_course('COMP1603', 'Computer Programming III', 'Level One', 3, 2)
-    create_course('COMP1604', 'Mathematics for Computing', 'Level One', 3, 2)
+    
     create_course('COMP2603', 'Object-Oriented Programming I', 'Advanced Level', 3, 2, 'COMP1603')
     create_course('COMP2604', 'Operating Systems', 'Advanced Level', 3, 2, 'COMP1600')
     create_course('COMP2606', 'Software Engineering I', 'Advanced Level', 3, 2, 'COMP1602')
