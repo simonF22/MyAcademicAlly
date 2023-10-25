@@ -1,21 +1,24 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
 from App.database import db
 
 class User(db.Model, UserMixin):
+    
+    __abstract__ = True
     id = db.Column(db.Integer, primary_key=True)
-    username =  db.Column(db.String, nullable=False, unique=True)
+    email =  db.Column(db.String, nullable=False, unique=True)
+    name =  db.Column(db.String, nullable=False)
     password = db.Column(db.String(120), nullable=False)
+    userType =  db.Column(db.String(120), nullable=False)
 
-    def __init__(self, username, password):
-        self.username = username
+    def __init__(self, email, name, password):
+        self.email = email
+        self.name = name
         self.set_password(password)
 
-    def get_json(self):
-        return{
-            'id': self.id,
-            'username': self.username
-        }
+    def __repr__(self):
+        return f'<User {self.id} {self.email} {self.name} {self.userType}>'
 
     def set_password(self, password):
         """Create hashed password."""
@@ -24,4 +27,12 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         """Check hashed password."""
         return check_password_hash(self.password, password)
+    
+    def toJSON(self):
+        return{
+            'id': self.id,
+            'email': self.email,
+            'name': self.name,
+            'userType': self.userType
+        }
 
