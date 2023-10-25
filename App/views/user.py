@@ -6,8 +6,8 @@ from.index import index_views
 
 
 from App.controllers import (
-    create_user,
-    jwt_authenticate, 
+    create_user, create_staff, create_student,
+    jwt_authenticate, login_staff, login_student,
     get_all_users,
     get_all_users_json,
     jwt_required

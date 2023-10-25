@@ -5,9 +5,10 @@ from flask_login import login_required, login_user, current_user, logout_user
 from.index import index_views
 
 from App.controllers import (
-    create_user,
+    get_all_users, get_all_users_json
+    create_user, create_staff, create_student,
     jwt_authenticate,
-    login 
+    login_staff, login_student 
 )
 
 auth_views = Blueprint('auth_views', __name__, template_folder='../templates')

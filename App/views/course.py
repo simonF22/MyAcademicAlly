@@ -3,21 +3,12 @@ from flask_jwt_extended import jwt_required, current_user as jwt_current_user
 from flask_login import login_required, login_user, current_user, logout_user
 
 from App.controllers import (
-    get_all_courses_json,
-    get_available_courses_json,
-    get_staff,
-    get_student,
+    get_all_courses_json, get_available_courses_json,
+    get_staff, get_student,
     get_course,
-    make_course_available,
-    make_course_unavailable,
-    create_CourseHistory,
-    remove_CourseHistory,
-    get_coursehistory,
-    get_coursehistory_by_student_json,
-    create_CoursePlan,
-    remove_CoursePlan,
-    get_courseplan,
-    get_courseplan_by_student_json
+    make_course_available, make_course_unavailable,
+    create_CourseHistory, remove_CourseHistory, get_coursehistory, get_coursehistory_by_student_json,
+    create_CoursePlan, remove_CoursePlan, get_courseplan, get_courseplan_by_student_json
 )
 
 course_views = Blueprint('course_views', __name__, template_folder='../templates')

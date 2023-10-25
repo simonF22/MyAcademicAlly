@@ -19,7 +19,7 @@ def login_staff(email, password):
         return staff
     return None
 
-def login(email, password):    
+def login_student(email, password):    
     student = Student.query.filter_by(email=email).first()
     if student and student.check_password(password):
         return student
