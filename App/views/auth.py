@@ -5,7 +5,7 @@ from flask_login import login_required, login_user, current_user, logout_user
 from.index import index_views
 
 from App.controllers import (
-    get_all_users, get_all_users_json
+    get_all_users, get_all_users_json,
     create_user, create_staff, create_student,
     jwt_authenticate,
     login_staff, login_student 
