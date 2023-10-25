@@ -24,6 +24,13 @@ def init():
         create_programme('CS_Spec', 'BSc Computer Science (Special)', 'FST', 24, 60, 9, 93, 'Level One: 24 Core Credits | Advanced Level: 60 Credits (45 Core Credits + 15 Elective Credits) | Foundation: 9 Credits')
 
         ''' COURSE CREATION '''
+        create_course('MATH1115', 'Fundamental Mathematics for General Sciences I', 'Level One', 3, 1)
+        create_course('MATH2250', 'Industrial Statistics', 'Advanced Level', 3, 1)
+
+        create_course('FOUN1101', 'Caribbean Civilisation', 'Foundation', 3, 1)
+        create_course('FOUN1105', 'Scientific and Technical Writing', 'Foundation', 3, 2)
+        create_course('FOUN1301', 'Law, Governance, Economy and Society', 'Foundation', 3, 2)
+
         create_course('COMP1600', 'Introduction to Computing Concepts', 'Level One', 3, 1)
         create_course('COMP1601', 'Computer Programming I', 'Level One', 3, 1)
         create_course('COMP1602', 'Computer Programming II', 'Level One', 3, 2)
@@ -56,7 +63,7 @@ def init():
         create_course('INFO2602', 'Web Programming and Technologies I', 'Advanced Level', 3, 2, 'INFO1601')
         create_course('INFO2604', 'Information Systems Security', 'Advanced Level', 3, 2, 'COMP1602')
         create_course('INFO2605', 'Professional Ethics and Law', 'Advanced Level', 3, 1, 'COMP1600')
-        
+
         create_course('INFO3600', 'Business Information Systems', 'Advanced Level', 3, 1, 'COMP2605')
         create_course('INFO3605', 'Fundamentals of LAN Technologies', 'Advanced Level', 3, 1, 'COMP2604')
         create_course('INFO3604', 'Project', 'Advanced Level', 3, 2, 'COMP2606')
@@ -64,14 +71,6 @@ def init():
         create_course('INFO3607', 'Fundamentals of WAN Technologies', 'Advanced Level', 3, 2, 'COMP2604')
         create_course('INFO3608', 'E-Commerce', 'Advanced Level', 3, 2, 'COMP2606')
         create_course('INFO3611', 'Database Administration', 'Advanced Level', 3, 2, 'COMP2605')
-
-        create_course('MATH1115', 'Fundamental Mathematics for General Sciences I', 'Level One', 3, 1)
-        create_course('MATH2250', 'Industrial Statistics', 'Advanced Level', 3, 1)
-
-        create_course('FOUN1101', 'Caribbean Civilisation', 'Foundation', 3, 1)
-        create_course('FOUN1105', 'Scientific and Technical Writing', 'Foundation', 3, 2)
-        create_course('FOUN1301', 'Law, Governance, Economy and Society', 'Foundation', 3, 2)
-
 
         ''' COURSE-PROGRAMME CREATION '''
         create_course_programme('COMP1600', 'CS_Spec')
