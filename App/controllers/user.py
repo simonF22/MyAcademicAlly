@@ -3,16 +3,16 @@ from App.models import User, Staff, Student
 
 
 def create_staff(email, name, password):
-    newuser = Staff(email=email, name=name, password=password)
-    db.session.add(newuser)
+    newstaff = Staff(email=email, name=name, password=password)
+    db.session.add(newstaff)
     db.session.commit()
-    return newuser
+    return newstaff
 
 def create_student(email, name, password):
-    newuser = Student(email=email, name=name, password=password)
-    db.session.add(newuser)
+    newstudent = Student(email=email, name=name, password=password)
+    db.session.add(newstudent)
     db.session.commit()
-    return newuser
+    return newstudent
 
 def get_staff(id):
     return Staff.query.get(id)
@@ -48,20 +48,20 @@ def get_all_users_json():
     return users
 
 def update_staff(id, email, name):
-    user = get_staff(id)
-    if user:
-        user.email = email
-        user.name = name
-        db.session.add(user)
+    staff = get_staff(id)
+    if staff:
+        staff.email = email
+        staff.name = name
+        db.session.add(staff)
         return db.session.commit()
     return None
 
 def update_student(id, email, name):
-    user = get_student(id)
-    if user:
-        user.email = email
-        user.name = name
-        db.session.add(user)
+    student = get_student(id)
+    if student:
+        student.email = email
+        student.name = name
+        db.session.add(student)
         return db.session.commit()
     return None
     
