@@ -5,8 +5,8 @@ from App.main import create_app
 from App.database import db, create_db
 from App.models import User, Staff, Student, Course, Programme, CourseProgramme, CourseHistory, CoursePlan
 from App.controllers import (
-    create_staff, create_student, create_course,
-    get_staff, get_student, get_all_users_json, get_course, get_coursehistory,
+    create_staff, create_student, create_course, create_programme, create_course_programme,
+    get_staff, get_student, get_all_users_json, get_course, get_programme, get_coursehistory, get_courseplan,
     login_staff, login_student,
     update_staff, update_student
 )
@@ -225,45 +225,43 @@ class UserIntegrationTests(unittest.TestCase):
 
     @pytest.mark.run(order=1)
     def test_create_staff(self):
-        create_staff("rick@uwimail.com", "rick", "rickpass")
+        create_staff("bob@uwimail.com", "bob", "bobpass")
         assert get_staff(1) != None
 
     @pytest.mark.run(order=2)
     def test_create_student(self):
-        create_student("rob@uwimail.com", "rob", "robpass")
+        create_student("jane@uwimail.com", "jane", "janepass")
         assert get_student(1) != None
 
     @pytest.mark.run(order=3)
     def test_authenticate_staff(self):
-        staff = create_staff("bob@uwimail.com", "bob", "bobpass")
-        assert login_staff("bob@uwimail.com", "bobpass") != None
+        staff = get_staff(1)
+        assert login_staff(staff.email, "bobpass") != None
 
     @pytest.mark.run(order=4)
     def test_authenticate_student(self):
-        student = create_student("jane@uwimail.com", "jane", "janepass")
-        assert login_student("jane@uwimail.com", "janepass") != None
+        student = get_student(1)
+        assert login_student(student.email, "janepass") != None
 
     @pytest.mark.run(order=5)
     def test_get_all_users_json(self):
         users_json = get_all_users_json()
         self.assertListEqual([
-            {"id":1, "email":"rick@uwimail.com", "name":"rick", "userType":"staff" },
-            {"id":2, "email":"bob@uwimail.com", "name":"bob", "userType":"staff"},
-            {"id":1, "email":"rob@uwimail.com", "name":"rob", "userType":"student" },
-            {"id":2, "email":"jane@uwimail.com", "name":"jane", "userType":"student" }
+            {"id":1, "email":"bob@uwimail.com", "name":"bob", "userType":"staff" },
+            {"id":1, "email":"jane@uwimail.com", "name":"jane", "userType":"student" }
             ], users_json)
 
     @pytest.mark.run(order=6)
     def test_update_staff(self):
-        update_staff(2, "bob@uwimail.com", "bobby")
-        staff = get_staff(2)
+        update_staff(1, "bob@uwimail.com", "bobby")
+        staff = get_staff(1)
         assert staff.name == "bobby"
 
     @pytest.mark.run(order=7)
     def test_update_student(self):
-        update_student(1, "rob@uwimail.com", "robby")
+        update_student(1, "jane@uwimail.com", "janny")
         student = get_student(1)
-        assert student.name == "robby"
+        assert student.name == "janny"
 
     @pytest.mark.run(order=8)
     def test_create_course(self):
@@ -271,14 +269,50 @@ class UserIntegrationTests(unittest.TestCase):
         assert get_course("COMP1601") != None
 
     @pytest.mark.run(order=9)
-    def test_student_selectPastCourse(self):
-        course = get_course("COMP1601")
-        student = get_student(2)
-        assert student.selectPastCourse(course.courseID) != False
+    def test_create_programme(self):
+        create_programme("CS_Spec", "BSc Computer Science (Special)", "FST", 24, 60, 9, 93, "Level One: 24 Core Credits | Advanced Level: 60 Credits (45 Core Credits + 15 Elective Credits) | Foundation: 9 Credits")
+        assert get_programme("CS_Spec") != None
     
     @pytest.mark.run(order=10)
+    def test_create_courseprogramme(self):
+        course = get_course("COMP1601")
+        programme = get_programme("CS_Spec")
+        assert create_course_programme(course.courseID, programme.programmeID) != None
+
+    @pytest.mark.run(order=11)
+    def test_staff_makeCourseAvailable(self):
+        staff = get_staff(1)
+        course = get_course("COMP1601")
+        assert staff.makeCourseAvailable(course) != False
+
+    @pytest.mark.run(order=12)
+    def test_staff_makeCourseUnavailable(self):
+        staff = get_staff(1)
+        course = get_course("COMP1601")
+        assert staff.makeCourseUnavailable(course) != False
+
+    @pytest.mark.run(order=13)
+    def test_student_selectPastCourse(self):
+        course = get_course("COMP1601")
+        student = get_student(1)
+        assert student.selectPastCourse(course.courseID) != False
+    
+    @pytest.mark.run(order=14)
     def test_student_deletePastCourse(self):
         course = get_course("COMP1601")
-        student = get_student(2)
+        student = get_student(1)
         coursehistory = get_coursehistory(student.id, course.courseID)
         assert student.deletePastCourse(coursehistory) != False
+
+    @pytest.mark.run(order=15)
+    def test_student_selectPlannedCourse(self):
+        course = get_course("COMP1601")
+        student = get_student(1)
+        assert student.selectPlannedCourse(course.courseID) != False
+    
+    @pytest.mark.run(order=16)
+    def test_student_deletePlannedCourse(self):
+        course = get_course("COMP1601")
+        student = get_student(1)
+        courseplan = get_courseplan(student.id, course.courseID)
+        assert student.deletePastCourse(courseplan) != False
