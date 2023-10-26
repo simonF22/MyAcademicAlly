@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.main import create_app
 from App.database import db, create_db
-from App.models import User, Staff, Student, Course, Programme, CourseHistory, CoursePlan
+from App.models import User, Staff, Student, Course, Programme, CourseProgramme, CourseHistory, CoursePlan
 from App.controllers import (
     create_staff, create_student, get_all_users_json,
     login_staff, login_student,
@@ -104,6 +104,23 @@ class UserUnitTests(unittest.TestCase):
             "creditsBreakdown":"Level One: 24 Core Credits | Advanced Level: 60 Credits (45 Core Credits + 15 Elective Credits) | Foundation: 9 Credits"
         })
 
+    def test_new_courseprogramme(self):
+        course = Course("COMP1601", "Computer Programming I", "Level I", 3, 1)
+        programme = Programme("CS_Spec", "BSc Computer Science (Special)", "FST", 24, 60, 9, 93, "Level One: 24 Core Credits | Advanced Level: 60 Credits (45 Core Credits + 15 Elective Credits) | Foundation: 9 Credits")
+        newCourseProgramme = CourseProgramme(course.courseID, programme.programmeID)
+        assert newCourseProgramme.courseID == "COMP1601" and newCourseProgramme.programmeID == "CS_Spec"
+
+    def test_courseprogrammeJSON(self):
+        course = Course("COMP1601", "Computer Programming I", "Level I", 3, 1)
+        programme = Programme("CS_Spec", "BSc Computer Science (Special)", "FST", 24, 60, 9, 93, "Level One: 24 Core Credits | Advanced Level: 60 Credits (45 Core Credits + 15 Elective Credits) | Foundation: 9 Credits")
+        courseprogramme = CourseProgramme(course.courseID, programme.programmeID)
+        courseprogramme_json = courseprogramme.toJSON()
+        self.assertDictEqual(courseprogramme_json, {
+            "courseProgrammeID":None,
+            "course":"COMP1601",
+            "programme":"CS_Spec"
+        })
+
     def test_new_coursehistory(self):
         student = Student("jane@uwimail.com", "jane", "janepass")
         student.id = 1
@@ -167,6 +184,7 @@ class UserUnitTests(unittest.TestCase):
                 "prerequisite":None, 
                 "status":"Unavailable"}
         })
+
 
 '''
     Integration Tests
