@@ -3,11 +3,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.main import create_app
 from App.database import db, create_db
-from App.models import User, Staff, Student, Course
+from App.models import User, Staff, Student, Course, Programme, CourseHistory, CoursePlan
 from App.controllers import (
     create_staff, create_student, get_all_users_json,
     login_staff, login_student,
-    
+
 )
 
 
@@ -30,12 +30,22 @@ class UserUnitTests(unittest.TestCase):
     def test_staffJSON(self):
         staff = Staff("bob@uwimail.com", "bob", "bobpass")
         staff_json = staff.toJSON()
-        self.assertDictEqual(staff_json, {"id":None, "email":"bob@uwimail.com", "name":"bob", "userType":"staff"})
+        self.assertDictEqual(staff_json, {
+            "id":None, 
+            "email":"bob@uwimail.com", 
+            "name":"bob", 
+            "userType":"staff"
+        })
 
     def test_studentJSON(self):
         student = Student("jane@uwimail.com", "jane", "janepass")
         student_json = student.toJSON()
-        self.assertDictEqual(student_json, {"id":None, "email":"jane@uwimail.com", "name":"jane", "userType":"student"})
+        self.assertDictEqual(student_json, {
+            "id":None, 
+            "email":"jane@uwimail.com", 
+            "name":"jane", 
+            "userType":"student"
+        })
 
     def test_staff_hashed_password(self):
         password = "mypass"
@@ -60,20 +70,102 @@ class UserUnitTests(unittest.TestCase):
         assert student.check_password(password)
 
     def test_new_course(self):
-        newcourse = Course('COMP1601', 'Computer Programming I', 'Level One', 3, 1)
+        newcourse = Course("COMP1601", "Computer Programming I", "Level I", 3, 1)
         assert newcourse.courseID == "COMP1601"
     
     def test_courseJSON(self):
-        course = Course('COMP1601', 'Computer Programming I', 'Level One', 3, 1)
+        course = Course("COMP1601", "Computer Programming I", "Level I", 3, 1)
         course_json = course.toJSON()
         self.assertDictEqual(course_json, {
-        "courseID":"COMP1601", 
-        "courseName":"Computer Programming I", 
-        "type":"Level One", 
-        "credits":3,
-        "semester":1,
-        "prerequisite":None,
-        "status":"Unavailable"
+            "courseID":"COMP1601", 
+            "courseName":"Computer Programming I", 
+            "type":"Level I", 
+            "credits":3,
+            "semester":1,
+            "prerequisite":None,
+            "status":"Unavailable"
+        })
+
+    def test_new_programme(self):
+        newprogramme = Programme("CS_Spec", "BSc Computer Science (Special)", "FST", 24, 60, 9, 93, "Level One: 24 Core Credits | Advanced Level: 60 Credits (45 Core Credits + 15 Elective Credits) | Foundation: 9 Credits")
+        assert newprogramme.programmeID == "CS_Spec"
+    
+    def test_programmeJSON(self):
+        programme = Programme("CS_Spec", "BSc Computer Science (Special)", "FST", 24, 60, 9, 93, "Level One: 24 Core Credits | Advanced Level: 60 Credits (45 Core Credits + 15 Elective Credits) | Foundation: 9 Credits")
+        programme_json = programme.toJSON()
+        self.assertDictEqual(programme_json, {
+            "programmeID":"CS_Spec", 
+            "programmeName":"BSc Computer Science (Special)", 
+            "faculty":"FST", 
+            "levelOneCredits":24,
+            "advancedLevelCredits":60,
+            "foundationCredits":9,
+            "totalCredits":93,
+            "creditsBreakdown":"Level One: 24 Core Credits | Advanced Level: 60 Credits (45 Core Credits + 15 Elective Credits) | Foundation: 9 Credits"
+        })
+
+    def test_new_coursehistory(self):
+        student = Student("jane@uwimail.com", "jane", "janepass")
+        student.id = 1
+        course = Course("COMP1601", "Computer Programming I", "Level I", 3, 1)
+        newCourseHistory = CourseHistory(student.id, course.courseID)
+        assert newCourseHistory.studentID == 1 and newCourseHistory.courseID == "COMP1601"
+
+    def test_coursehistoryJSON(self):
+        student = Student("jane@uwimail.com", "jane", "janepass")
+        student.id = 1
+        course = Course("COMP1601", "Computer Programming I", "Level I", 3, 1)
+        coursehistory = CourseHistory(student.id, course.courseID)
+        coursehistory.student = student
+        coursehistory.course = course
+        coursehistory_json = coursehistory.toJSON()
+        self.assertDictEqual(coursehistory_json, {
+            "courseHistoryID":None,
+            "student":{
+                "id":1, 
+                "email":"jane@uwimail.com", 
+                "name":"jane", 
+                "userType":"student"},
+            "course":{
+                "courseID":"COMP1601", 
+                "courseName":"Computer Programming I", 
+                "type":"Level I", 
+                "credits":3, 
+                "semester":1, 
+                "prerequisite":None, 
+                "status":"Unavailable"}
+        })
+    
+    def test_new_courseplan(self):
+        student = Student("jane@uwimail.com", "jane", "janepass")
+        student.id = 1
+        course = Course("COMP1601", "Computer Programming I", "Level I", 3, 1)
+        newCoursePlan = CoursePlan(student.id, course.courseID)
+        assert newCoursePlan.studentID == 1 and newCoursePlan.courseID == "COMP1601"
+    
+    def test_courseplanJSON(self):
+        student = Student("jane@uwimail.com", "jane", "janepass")
+        student.id = 1
+        course = Course("COMP1601", "Computer Programming I", "Level I", 3, 1)
+        courseplan = CoursePlan(student.id, course.courseID)
+        courseplan.student = student
+        courseplan.course = course
+        courseplan_json = courseplan.toJSON()
+        self.assertDictEqual(courseplan_json, {
+            "coursePlanID":None,
+            "student":{
+                "id":1, 
+                "email":"jane@uwimail.com", 
+                "name":"jane", 
+                "userType":"student"},
+            "course":{
+                "courseID":"COMP1601", 
+                "courseName":"Computer Programming I", 
+                "type":"Level I", 
+                "credits":3, 
+                "semester":1, 
+                "prerequisite":None, 
+                "status":"Unavailable"}
         })
 
 '''

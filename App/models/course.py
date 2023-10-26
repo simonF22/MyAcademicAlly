@@ -10,7 +10,7 @@ class Course(db.Model):
     semester =  db.Column(db.Integer, nullable=False)
     prerequisite = db.Column(db.String(30), db.ForeignKey('course.courseID'), nullable=True)
     status = db.Column(db.Enum("Available", "Unavailable", name="course_status_enum"), nullable=False)
-    programmes = db.relationship('CourseProgramme', backref=db.backref('course', lazy='joined'))
+    #programmes = db.relationship('CourseProgramme', backref=db.backref('course', lazy='joined'))
 
     def __init__(self, courseID, courseName, type, credits, semester, prerequisite=None):
         self.courseID = courseID
@@ -32,5 +32,5 @@ class Course(db.Model):
             'credits' : self.credits,
             'semester' : self.semester,
             'prerequisite' : self.prerequisite,
-            'status' : self.status,
+            'status' : self.status
         }
