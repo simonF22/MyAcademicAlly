@@ -5,7 +5,7 @@ from flask.cli import with_appcontext, AppGroup
 from App.database import db, get_migrate
 from App.main import create_app
 from App.controllers import (
-    create_user, create_staff, create_student, get_all_users_json, get_all_users, 
+    create_staff, create_student, get_all_users_json, get_all_users, 
     create_course, get_course, get_all_courses, get_all_courses_json,
     create_programme, get_programme, get_all_programmes, get_all_programmes_json, 
     create_course_programme, get_all_course_programme, get_all_course_programme_json )
@@ -24,9 +24,7 @@ def initialize():
     create_student('jane@uwimail.com', 'jane', 'janepass')
     
     create_programme('CS_Spec', 'BSc Computer Science (Special)', 'FST', 24, 60, 9, 93, 'Level One: 24 Core Credits | Advanced Level: 60 Credits (45 Core Credits + 15 Elective Credits) | Foundation: 9 Credits')
-    #create_programme('CS_Major', 'Major in Computer Science', 'FST', 24, 60, 9, 93, 'Level One: 12 CompSci Core Credits | Advanced Level: 30 CompSci Credits (18 Core Credits + 12 Elective Credits) | Foundation: 9 Credits')
-    #create_programme('CS_Minor', 'Minor in Computer Science', 'FST', 24, 60, 9, 93, 'Level One: 12 CompSci Core Credits | Advanced Level: 15 CompSci Credits (9 Core Credits + 6 Elective Credits) | Foundation: 9 Credits')
-
+ 
     create_course('COMP1600', 'Introduction to Computing Concepts', 'Level One', 3, 1)
     create_course('COMP1601', 'Computer Programming I', 'Level One', 3, 1)
     create_course('COMP1602', 'Computer Programming II', 'Level One', 3, 2)
@@ -147,8 +145,6 @@ def create_staff_command(email, name, password):
 def create_student_command(email, name, password):
     create_student(email, name, password)
     print(f'{email} created!')
-
-# this command will be : flask user create staff rob@uwimail.com rob robpass
 
 @user_cli.command("list", help="Lists users in the database")
 @click.argument("format", default="string")

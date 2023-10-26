@@ -12,7 +12,6 @@ def jwt_authenticate(email, password):
         return create_access_token(identity=email)
     return None
     
-
 def login_staff(email, password):
     staff = Staff.query.filter_by(email=email).first()
     if staff and staff.check_password(password):
@@ -37,8 +36,6 @@ def setup_flask_login(app):
         student = Student.query.get(user_id)
         if student:
             return student
-        #return User.query.get(user_id)
-    
     return login_manager
 
 def setup_jwt(app):
@@ -63,5 +60,4 @@ def setup_jwt(app):
         student = Student.query.get(identity)
         if student:
             return student
-
     return jwt
